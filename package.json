@@ -1,0 +1,30 @@
+{
+  "name": "time-worker",
+  "version": "1.0.0",
+  "description": "Set timeouts and intervals in web workers so they continue working when the page is hidden.",
+  "main": "dist/index.js",
+  "scripts": {
+    "watch": "tsc --watch",
+    "build": "tsc --build"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  },
+  "keywords": [
+    "time",
+    "timeout",
+    "interval",
+    "worker",
+    "webworker"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spasimir21/time-worker.git"
+  },
+  "homepage": "https://github.com/spasimir21/time-worker#readme",
+  "bugs": {
+    "url": "https://github.com/spasimir21/time-worker/issues"
+  },
+  "author": "Spasimir Pavlov",
+  "license": "MIT"
+}
