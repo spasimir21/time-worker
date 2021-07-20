@@ -1,6 +1,6 @@
 {
   "name": "time-worker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Set timeouts and intervals in web workers so they continue working when the page is hidden.",
   "main": "dist/index.js",
   "scripts": {
