@@ -25,7 +25,7 @@ import TimeWorker from 'time-worker';
 
 const timeWorker = new TimeWorker(); // Instantiate the TimeWorker
 
-timeWorker.setTimeout(() => console.log('Timeout fired!'), 1000); // Set a timeout
+const interval = timeWorker.setInterval(() => console.log('interval'), 1000); // Set an interval
 
-const interval = timeWorker.setInterval(() => timeWorker.clearInterval(interval), 1000); // Set and clear an interval
+timeWorker.setTimeout(() => timeWorker.clearInterval(interval), 5000); // Set a timeout to clear the interval
 ```
