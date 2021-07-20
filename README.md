@@ -1,6 +1,6 @@
-# Time Worker v1.0.2
+# Time Worker v1.0.3
 
-Set timeouts and intervals in web workers so they continue working when the page is hidden.
+Set Timeouts and Intervals in Web Workers So They Continue Working When the Page is Hidden.
 
 # Installation
 
