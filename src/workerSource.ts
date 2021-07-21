@@ -1,7 +1,8 @@
 // The worker's source is ES5 to support more browsers
 // because bundlers aren't able to modify it.
 export default `
-var id_mappings = {};
+var interval_id_mappings = {};
+var timeout_id_mappings = {};
 
 function createCallback(type, id) {
   return function () {
@@ -11,22 +12,33 @@ function createCallback(type, id) {
 
 function _setTimeout(id, ms) {
   var real_id = setTimeout(createCallback('timeout', id), ms);
-  id_mappings[id] = real_id;
+  timeout_id_mappings[id] = real_id;
 }
 
 function _setInterval(id, ms) {
   var real_id = setInterval(createCallback('interval', id), ms);
-  id_mappings[id] = real_id;
+  interval_id_mappings[id] = real_id;
 }
 
 function _clearTimeout(id) {
-  clearTimeout(id_mappings[id]);
-  delete id_mappings[id];
+  clearTimeout(timeout_id_mappings[id]);
+  delete timeout_id_mappings[id];
 }
 
 function _clearInterval(id) {
-  clearInterval(id_mappings[id]);
-  delete id_mappings[id];
+  clearInterval(interval_id_mappings[id]);
+  delete interval_id_mappings[id];
+}
+
+function _clearAll() {
+  for (const id in timeout_id_mappings) {
+    clearTimeout(timeout_id_mappings[id]);
+    delete timeout_id_mappings[id];
+  }
+  for (const id in interval_id_mappings) {
+    clearInterval(interval_id_mappings[id]);
+    delete interval_id_mappings[id];
+  }
 }
 
 onmessage = function (event) {
@@ -42,6 +54,9 @@ onmessage = function (event) {
       break;
     case 'clear-interval':
       _clearInterval(event.data.id);
+      break;
+    case 'clear-all':
+      _clearAll();
       break;
     default:
       break;

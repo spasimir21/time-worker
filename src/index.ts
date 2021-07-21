@@ -7,6 +7,8 @@ class TimeWorker {
   private readonly callbacks: Record<string, () => void> = {};
   private readonly worker: Worker;
 
+  public isTerminated: boolean = false;
+
   constructor() {
     const worker_blob: Blob = new Blob([workerSource], { type: 'application/javascript' });
     this.worker = new Worker(window.URL.createObjectURL(worker_blob));
@@ -39,6 +41,21 @@ class TimeWorker {
   clearInterval(id: string): void {
     this.worker.postMessage({ operation: 'clear-interval', id });
     delete this.callbacks[id];
+  }
+
+  clearAll(): void {
+    this.worker.postMessage({ operation: 'clear-all' });
+    for (const id in this.callbacks) {
+      delete this.callbacks[id];
+    }
+  }
+
+  terminate(): void {
+    this.worker.terminate();
+    for (const id in this.callbacks) {
+      delete this.callbacks[id];
+    }
+    this.isTerminated = true;
   }
 }
 
